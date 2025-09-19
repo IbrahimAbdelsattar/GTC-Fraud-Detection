@@ -10,7 +10,7 @@ It aims to build a **fraud detection system** using the latest **2023 Credit Car
 ---
 
 ## 👨‍💻 Team Members
-- **Ibrahim Abdelsattar **  
+- **Ibrahim Abdelsattar**  
 - **Mohamed Abdelghany**  
 - **Yousef Abdelhady**  
 - **Yusuf Kamel**  
