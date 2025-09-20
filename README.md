@@ -1,112 +1,91 @@
-# 🔍 GTC-ML-Credit Card Fraud Detection 
+# 🔍 Advanced Credit Card Fraud Detection using a Stacking Ensemble
 
-## 📌 Project Overview  
-Credit card fraud is one of the biggest threats in the financial sector, causing billions in annual losses and damaging customer trust.  
-With the rise of **e-commerce and online transactions**, detecting fraudulent activity quickly and accurately is more important than ever.  
+## 🚀 Live Demo
+Experience the model in action by testing real-time or batch transactions on our interactive web app:
 
-This project was developed as the **Final Project for the GTC-ML-Internship**.  
-It aims to build a **fraud detection system** using the latest **2023 Credit Card Fraud Detection dataset** by analyzing transaction patterns and applying advanced Machine Learning and Deep Learning algorithms.  
+**➡️ [Hugging Face Spaces: Fraud Detection Demo](https://huggingface.co/spaces/useifabdelhady/FraudDetection)**
+
+---
+
+## 📌 Project Overview
+Credit card fraud poses a significant threat to the financial industry, leading to substantial annual losses and eroding consumer trust. The primary challenge in detecting fraud lies in identifying rare fraudulent transactions hidden within millions of legitimate ones.
+
+This project, developed as the **Final Project for the GTC-ML-Internship**, tackles this challenge by building a sophisticated fraud detection system. It leverages an advanced **Stacking Ensemble model** combined with extensive **feature engineering** and techniques to handle **extreme class imbalance**. The model is trained on the classic credit card fraud dataset, which features anonymized transaction data.
 
 ---
 
 ## 👨‍💻 Team Members
-- **Ibrahim Abdelsattar**  
-- **Mohamed Abdelghany**  
-- **Yousef Abdelhady**  
-- **Yusuf Kamel**  
-- **Mohamed Hamed**  
+- **Ibrahim Abdelsattar**
+- **Mohamed Abdelghany**
+- **Yousef Abdelhady**
+- **Yusuf Kamel**
+- **Mohamed Hamed**
 - **Omar Hosni**
 
 ---
 
-## 🎯 Why This Project is Important  
-- **Financial Security** – Preventing fraud reduces losses for both customers and banks.  
-- **Customer Experience** – Accurate detection reduces unnecessary blocking of legitimate transactions.  
-- **Evolving Fraud Patterns** – Fraud tactics change over time; updated datasets ensure adaptive detection methods.  
-- **Balanced Dataset** – Unlike older versions, this dataset has a more balanced distribution of fraud vs. legitimate transactions, improving training quality.  
+## 📂 Dataset Description
+The project utilizes the highly imbalanced **Credit Card Fraud Detection** dataset from Kaggle. It contains anonymized transactions made by European cardholders.
+
+- **Features**: The dataset consists of 30 numerical features.
+  - `Time` & `Amount`: The only non-anonymized features.
+  - `V1` to `V28`: Anonymized features resulting from a PCA transformation.
+- **Class Imbalance**: The dataset is extremely imbalanced, with fraudulent transactions accounting for only **0.17%** of all records. This makes accuracy a poor metric and requires specialized techniques.
+- **Target Variable (`Class`)**:
+  - `0` → Legitimate transaction
+  - `1` → Fraudulent transaction
+
+📌 **Source**: [Kaggle – Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 
 ---
 
-## 📂 Dataset Description  
-The dataset contains anonymized **credit card transactions from 2023**, including both legitimate and fraudulent records.  
+## ⚙️ Project Workflow & Methodology
 
-- **Amount** – Transaction amount (in local currency).  
-- **TransactionType / Category** – Transaction type (purchase, transfer, withdrawal, etc.).  
-- **V1, V2, … Vn** – Engineered/anonymized numerical features.  
-- **Date / Time** – Transaction timestamp.  
-- **Class** – Target variable:  
-  - `0` → Legitimate transaction  
-  - `1` → Fraudulent transaction  
+### 1. Exploratory Data Analysis (EDA)
+- Analyzed the severe class imbalance and its implications.
+- Visualized distributions of `Time` and `Amount` for both classes.
+- Investigated correlations between features to identify key predictors of fraud.
 
-📌 Source: [Kaggle – Credit Card Fraud Detection Dataset 2023]([https://www.kaggle.com/](https://www.kaggle.com/datasets/nelgiriyewithana/credit-card-fraud-detection-dataset-2023))  
+### 2. Advanced Feature Engineering
+To enhance the model's predictive power, several new features were created:
+- **Temporal Features**: `hour_of_day` and `time_bin` were extracted from the `Time` feature.
+- **Amount-Based Features**: `scaled_amount`, `amount_deviation` (from the mean), and `amount_bin` were created to capture spending patterns.
+- **Aggregated Features**: `mean_V` and `std_V` were calculated from the PCA components (V1-V28).
+- **Interaction Features**: Top correlating features were combined to capture complex, non-linear relationships.
 
----
+### 3. Model Architecture: Stacking Ensemble
+A powerful **Stacking Classifier** was built to combine the strengths of multiple high-performing gradient boosting models.
+- **Base Models**:
+  - **XGBoost**
+  - **CatBoost**
+  - **LightGBM**
+- **Meta-Model**:
+  - **Logistic Regression** was used as the final estimator to aggregate the predictions from the base models.
 
-## ⚙️ Project Workflow  
+### 4. Handling Class Imbalance
+- **SMOTE (Synthetic Minority Over-sampling Technique)** was integrated into an `ImbPipeline`. This technique generates synthetic samples for the minority class (fraud) to create a more balanced training set, preventing the model from being biased towards the majority class.
 
-### 1. Data Understanding & Exploration (EDA)  
-- Reviewed class distribution and balance.  
-- Analyzed transaction amounts, time-based patterns, and correlations.  
-- Visualized key patterns in fraud vs. legitimate transactions.  
-
-### 2. Data Preprocessing  
-- Handled missing values.  
-- Normalized/scaled numerical features.  
-- Encoded categorical variables.  
-- Split data into training and testing sets.  
-
-### 3. Model Building  
-We implemented and compared the following algorithms:  
-- Logistic Regression  
-- Random Forest  
-- XGBoost  
-- LightGBM  
-- CatBoost  
-- Deep Neural Network (DNN)  
-
-Cross-validation was applied to ensure robust evaluation.  
-
-### 4. Model Evaluation  
-Evaluation metrics:  
-- **Accuracy**  
-- **Precision**  
-- **Recall**  
-- **F1-Score**  
-- **ROC-AUC**  
+### 5. Evaluation & Threshold Optimization
+- The model was validated using **5-fold stratified cross-validation**.
+- Given the imbalance, the focus was on metrics like **Precision, Recall, F1-Score, and PR-AUC**.
+- A critical step was **optimizing the decision threshold**. Instead of the default 0.5, we identified the optimal threshold (`0.9821`) that maximizes the F-beta score (with `beta=2.0`), which heavily prioritizes **Recall** (catching as many fraudulent transactions as possible).
 
 ---
 
-## 📊 Model Performance  
+## 📊 Final Model Performance
+The table below shows the performance of the final **Stacking Ensemble + SMOTE** model on the test set using the optimized decision threshold.
 
-| Model                | Accuracy (%) |
-|----------------------|--------------|
-| Logistic Regression  | **82.19**    |
-| Random Forest        | **86.45**    |
-| XGBoost              | **99.74**    |
-| LightGBM             | **95.41**    |
-| CatBoost             | **97.35**    |
-| Deep Neural Network  | **99.96**    |
-
----
-
-## 📈 Observations  
-- **Logistic Regression** performed the weakest → dataset too complex for linear models.  
-- **Tree-based models (RF, LightGBM, CatBoost)** performed significantly better.  
-- **XGBoost** excelled with **99.74% accuracy**, showing strong handling of feature complexity.  
-- **DNN** achieved the highest accuracy (**99.96%**), proving best overall performance.  
+| Metric | Score |
+| :--- | :--- |
+| **Accuracy** | 99.96% |
+| **Precision** | 92.31% |
+| **Recall** | 85.71% |
+| **F1-Score** | **0.8889** |
+| **ROC-AUC** | 0.9847 |
+| **PR-AUC** | 0.8711 |
 
 ---
 
-## ✅ Conclusion  
-Both **XGBoost** and **DNN** are highly effective for fraud detection.  
-- **XGBoost** offers excellent performance with lower computational cost and higher interpretability.  
-- **DNN** slightly outperforms XGBoost but at higher resource requirements.  
+## ✅ Conclusion
+This project successfully demonstrates that a combination of deep feature engineering, a powerful stacking ensemble, and specialized techniques like SMOTE and threshold optimization can build a highly effective fraud detection system. The final model achieves an excellent **F1-Score of 0.89**, successfully balancing the need to catch fraudulent transactions (high recall) while minimizing false alarms (high precision).
 
-The choice between them depends on the **deployment environment** (real-time constraints vs. resource availability).  
-
----
-
-## 🚀 Future Work  
-- Improve explainability using **SHAP** or **LIME**.  
-- Deploy models as a **REST API** for real-time fraud detection.  
-- Explore ensemble approaches combining XGBoost & DNN.  

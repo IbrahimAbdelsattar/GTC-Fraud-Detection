@@ -1,0 +1,26 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Ignore notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignore large data and artifacts (you can mount or upload separately if needed)
+data/
+mlruns/
+artifacts/
+logs/
+
+# Ignore git and local configs
+.git/
+.gitignore
+.env
+.DS_Store
+
+# Ignore build stuff
+*.egg-info/
+build/
+dist/
