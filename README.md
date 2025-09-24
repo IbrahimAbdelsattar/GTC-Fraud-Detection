@@ -3,7 +3,8 @@
 ## 🚀 Live Demo
 Experience the model in action by testing real-time or batch transactions on our interactive web app:
 
-**➡️ [Hugging Face Spaces: Fraud Detection Demo](https://huggingface.co/spaces/useifabdelhady/FraudDetection)**
+**➡️ [Hugging Face Spaces: Fraud Detection Demo](https://huggingface.co/spaces/useifabdelhady/FraudDetection)**      
+![Fraud Detection app](https://github.com/user-attachments/assets/0b07a4b1-7a94-44b1-9260-abe272220dc5)
 
 ---
 
@@ -83,6 +84,9 @@ The table below shows the performance of the final **Stacking Ensemble + SMOTE**
 | **F1-Score** | **0.8889** |
 | **ROC-AUC** | 0.9847 |
 | **PR-AUC** | 0.8711 |
+
+
+![The Confusion Matrix](https://github.com/user-attachments/assets/24f9245f-4fab-4e46-bd4c-fb29319f7998)
 
 ---
 
