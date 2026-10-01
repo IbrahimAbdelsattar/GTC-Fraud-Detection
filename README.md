@@ -1,262 +1,73 @@
-<br/><br/>
+# GTC Fraud Detection
 
-<!-- Animated Title -->
-<a href="#">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=36&pause=1000&color=7C3AED&center=true&vCenter=true&width=800&lines=Gtc Fraud Detection+%F0%9F%9A%80;Enterprise+Data+Science+%26+AI;Interactive+Analytics+%26+ML;Built+by+Ibrahim+Abdelsattar" alt="Typing SVG"/>
-</a>
+A structured credit-card fraud detection project with feature engineering, a stacking ensemble, saved inference artifacts, and a Streamlit dashboard.
 
-<br/>
+**Technology:** Python · XGBoost · LightGBM · CatBoost · imbalanced-learn · Streamlit
 
-<p align="center">
-  <b>Enterprise-Grade Data Science & Software Engineering Solution</b><br/>
-  <i>Data Visualization (Matplotlib/Seaborn/Plotly) · LightGBM · Pandas & NumPy · Scikit-Learn · Streamlit</i>
-</p>
+## Features
 
-<br/>
+- Train a pipeline with median imputation, SMOTE, and a stacking classifier.
+- Combine XGBoost, CatBoost, and LightGBM base learners with Logistic Regression as the final estimator.
+- Load preprocessing artifacts, a saved model pipeline, and an operating threshold for inference.
+- Explore single transactions, batch inputs, and dashboard monitoring; generated sample transactions are demonstrations.
 
-<!-- Badges Row -->
-<p align="center">
-  <img src="https://img.shields.io/badge/Data%20Visualization%20(Matplotlib%2FSeaborn%2FPlotly)-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/LightGBM-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Pandas%20&%20NumPy-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Scikit-Learn-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Streamlit-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/XGBoost-7C3AED?style=for-the-badge&logoColor=white"/>
-  <img src="https://img.shields.io/badge/License-Academic-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge"/>
-</p>
+## Repository guide
 
-<br/>
+| Path | Purpose |
+|---|---|
+| [src/models/train_model.py](src/models/train_model.py) | Training workflow and artifact export. |
+| [src/utils/data_preprocessing.py](src/utils/data_preprocessing.py) | Input validation and preprocessing. |
+| [src/utils/feature_engineering.py](src/utils/feature_engineering.py) | Feature transformations. |
+| [src/utils/model_utils.py](src/utils/model_utils.py) | Model training and inference helpers. |
+| [src/deployment/app.py](src/deployment/app.py) | Streamlit dashboard. |
+| [artifacts](artifacts) | Committed model and preprocessing assets. |
+| [notebooks](notebooks) | Exploratory training notebooks. |
 
-<!-- Quick Links -->
-<p align="center">
-  <a href="#-overview"><img src="https://img.shields.io/badge/📌-Overview-7C3AED?style=flat-square"/></a>
-  &nbsp;
-  <a href="#-core-features"><img src="https://img.shields.io/badge/🔥-Features-E11D48?style=flat-square"/></a>
-  &nbsp;
-  <a href="#%EF%B8%8F-system-architecture"><img src="https://img.shields.io/badge/🏗️-Architecture-0891B2?style=flat-square"/></a>
-  &nbsp;
-  <a href="#-technical-stack"><img src="https://img.shields.io/badge/⚙️-Tech%20Stack-16A34A?style=flat-square"/></a>
-  &nbsp;
-  <a href="#-getting-started"><img src="https://img.shields.io/badge/🚀-Getting%20Started-F59E0B?style=flat-square"/></a>
-</p>
+## Requirements and current limitations
 
-<br/>
+The raw training dataset is not included. Keep the full artifact set together and use the pinned library versions when loading the saved pipeline. Scores and sample dashboard records do not establish real-world fraud detection performance. The source imports MLflow, Matplotlib, and Seaborn, which are absent from the committed requirements list; the supplemental install command supplies them.
 
----
-
-## 📌 Overview
-
-**Gtc Fraud Detection** is an advanced software and data science repository engineered by **Ibrahim Abdelsattar**. It implements end-to-end data processing pipelines, predictive machine learning models, and production-ready code structures tailored for analytical precision and operational reliability.
-
-> Designed for seamless integration, high scalability, and robust computational performance.
-
----
-
-## 🎯 Problem & Solution Architecture
-
-<table>
-<tr>
-<td width="50%">
-
-### ❌ The Challenge
-
-Traditional analytical approaches face critical operational limitations:
-
-- 📉 Manual data wrangling and non-standardized preprocessing
-- 🔮 Lack of feature attribution and model explainability
-- ⚠️ Unoptimized hyperparameters leading to sub-optimal accuracy
-- 🔄 Inefficient deployment workflows and missing pipeline automation
-
-</td>
-<td width="50%">
-
-### ✅ Our Solution
-
-| Challenge | Implemented Solution |
-|-----------|----------------------|
-| Raw Data Noise | Automated cleaning & feature encoding |
-| Low Accuracy | Tuned ML ensembles & robust evaluation |
-| Deployment Gaps | Modular CLI/Web interfaces & reproducible scripts |
-| Missing Insights | Visual metric plots & structured reporting |
-
-</td>
-</tr>
-</table>
-
----
-
-## 🔥 Core Features
-
-<table>
-<tr>
-
-<td align="center" width="33%">
-<br/>
-<b>🤖 Machine Learning Models</b><br/><br/>
-• LightGBM<br/>• Logistic Regression<br/>• Random Forest<br/>• Support Vector Machine (SVM)<br/>
-Automated Hyperparameter Tuning<br/>
-Cross-Validation Pipeline<br/><br/>
-</td>
-<td align="center" width="33%">
-<br/>
-<b>📊 Data Preprocessing & EDA</b><br/><br/>
-Automated Missing Value Imputation<br/>
-Feature Engineering & Scaling<br/>
-Outlier Detection & Removal<br/>
-Exploratory Data Analysis Plots<br/><br/>
-</td>
-<td align="center" width="33%">
-<br/>
-<b>🎯 Production Guardrails</b><br/><br/>
-Strict Input Validation<br/>
-Reproducible Seed Setting<br/>
-Model Artifact Persistence<br/>
-Comprehensive Logging<br/><br/>
-</td>
-</tr>
-</table>
-
----
-
-## 🏗️ System Architecture & Data Flow
-
-<br/>
-
-```mermaid
-flowchart LR
-    A["📥 Data Ingestion
-Raw Datasets / Inputs"] --> B["🧹 Preprocessing & Cleaning
-Feature Scaling & Encoding"]
-    B --> C["⚙️ Feature Engineering
-Domain Transformation"]
-    C --> D["🤖 Machine Learning Pipeline
-Model Training & Evaluation"]
-    D --> E["📊 Predictive Output & Metrics
-Interactive Dashboard / Reports"]
-    style A fill:#1e1b4b,color:#a5b4fc
-    style B fill:#312e81,color:#c7d2fe
-    style D fill:#1e3a5f,color:#93c5fd
-    style E fill:#14532d,color:#86efac
-```
-
----
-
-## ⚙️ Technical Stack
-
-<div align="center">
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Data Visualization (Matplotlib/Seaborn/Plotly)** | Core Framework / Library | Primary computing and analytical engine |
-| **LightGBM** | Core Framework / Library | Primary computing and analytical engine |
-| **Pandas & NumPy** | Core Framework / Library | Primary computing and analytical engine |
-| **Scikit-Learn** | Core Framework / Library | Primary computing and analytical engine |
-| **Streamlit** | Core Framework / Library | Primary computing and analytical engine |
-| **XGBoost** | Core Framework / Library | Primary computing and analytical engine |
-
-</div>
-
----
-
-
-## 📊 Performance & Evaluation Metrics
-
-<div align="center">
-
-| Metric | Score / Value | Description |
-|:------:|:-------------:|-------------|
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-| **Accuracy** | `40.00%` | Verified evaluation output from notebook/script |
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-| **Accuracy** | `40.00%` | Verified evaluation output from notebook/script |
-| **F1** | `40.00%` | Verified evaluation output from notebook/script |
-
-</div>
-
----
-
-
-## 📁 Directory Structure
-
-<details>
-<summary><b>📂 Click to expand repository tree</b></summary>
-
-```
-GTC-Fraud-Detection/
-├── .dockerignore
-├── .gitignore
-├── Credit Card Fraud Detection Documentation.pdf
-├── Dockerfile
-├── README.md
-│   ├── amount_bin_edges.pkl
-│   ├── confusion_matrix_stacking_ensemble_smote_(optimized).png
-│   ├── feature_columns.pkl
-│   ├── fraud_model_pipeline.pkl
-│   ├── legit_amount_mean.pkl
-│   ├── optimal_threshold.pkl
-│   ├── scaler.pkl
-│   ├── top_corr_features.pkl
-│   ├── FraudDetection.ipynb
-│   ├── FraudDetection2.ipynb
-│   ├── credit-card-fraud-detection (1).ipynb
-├── requirements.txt
-├── setup.py
-│   ├── __init__.py
-│   │   ├── __init__.py
-│   │   ├── parameters.py
-│   │   ├── __init__.py
-│   │   ├── app.py
-│   │   ├── style.css
-│   │   ├── __init__.py
-```
-
-</details>
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Python 3.10+ (or Node.js 18+ for web apps)
-- Git & Virtualenv
-
-### Installation & Execution
+## Getting started
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/IbrahimAbdelsattar/GTC-Fraud-Detection.git
 cd GTC-Fraud-Detection
-
-# 2. Set up virtual environment (Python)
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Launch project execution
-streamlit run app.py
 ```
 
----
+Use a Python virtual environment:
 
-## 👤 Author & Contact
+```bash
+python -m venv .venv
+```
 
-<div align="center">
+Activate it with `source .venv/bin/activate` on macOS/Linux or `.venv\Scripts\Activate.ps1` in PowerShell.
 
-**Ibrahim Abdelsattar**  
-*Data Scientist & AI Specialist · MTI University (CS & AI, GPA 3.5)*
+```bash
+python -m pip install -r requirements.txt
+python -m pip install -e .
+python -m pip install mlflow matplotlib seaborn
+python -m streamlit run src/deployment/app.py
+```
 
-[Email](mailto:ibrahimabdelsattar042@gmail.com) · [GitHub](https://github.com/IbrahimAbdelsattar) · [LinkedIn](https://linkedin.com/in/ibrahim-abdelsattar)
+## Training
 
-<br/>
+Place the training CSV at `data/raw/creditcard.csv`, as configured in `src/config/parameters.py`, then run from the repository root:
 
-<img src="https://img.shields.io/badge/Made%20with-Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-<img src="https://img.shields.io/badge/Maintained%20by-Ibrahim%20Abdelsattar-7C3AED?style=for-the-badge"/>
+```bash
+python -m src.models.train_model
+```
 
-</div>
+Training writes model and preprocessing artifacts. Review the saved feature order and threshold before using newly trained models.
+
+## Docker
+
+```bash
+docker build -t gtc-fraud-detection .
+docker run --rm -p 7860:7860 gtc-fraud-detection
+```
+
+The Dockerfile serves Streamlit on port `7860`.
+
+## Project notes
+
+Project contributors listed in `setup.py`: Ibrahim Abdelsattar, Mohamed Abdelghany, Yousef Abdelhady, Yusuf Kamel, Mohamed Hamed, and Omar Hosni.
