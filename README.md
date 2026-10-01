@@ -27,6 +27,66 @@ A structured credit-card fraud detection project with feature engineering, a sta
 
 The raw training dataset is not included. Keep the full artifact set together and use the pinned library versions when loading the saved pipeline. Scores and sample dashboard records do not establish real-world fraud detection performance. The source imports MLflow, Matplotlib, and Seaborn, which are absent from the committed requirements list; the supplemental install command supplies them.
 
+## UML diagrams
+
+### Main workflow
+
+For a single transaction, ModelPredictor loads preprocessing artifacts, calls the saved pipeline, and applies its operating threshold to the returned probability.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant App as Streamlit dashboard
+    participant Predictor as ModelPredictor
+    participant Prep as DataPreprocessor
+    participant Pipeline as Saved stacking pipeline
+    User->>App: Submit a single transaction
+    App->>App: validate_input_data
+    App->>Predictor: predict_single with optimal threshold
+    Predictor->>Prep: Load artifacts and preprocess_new_data
+    Prep-->>Predictor: Prepared feature row
+    Predictor->>Pipeline: predict_proba
+    Pipeline-->>Predictor: Fraud probability
+    Predictor->>Predictor: Apply loaded decision threshold
+    Predictor-->>App: Class and probability
+    App-->>User: Prediction and dashboard output
+```
+
+### Inference and training helpers
+
+The utility classes separate training/evaluation from model loading and prediction; the diagram shows responsibilities rather than an inheritance relationship.
+
+```mermaid
+classDiagram
+    direction TB
+    class ModelTrainer {
+        +setup_mlflow()
+        +evaluate_model()
+        +find_optimal_threshold()
+        +cross_validate_model()
+        +train_and_log_model()
+    }
+    class ModelPredictor {
+        +load_model()
+        +load_threshold()
+        +predict()
+        +predict_single()
+    }
+    class DataPreprocessor {
+        +load_preprocessing_artifacts()
+        +preprocess_new_data()
+    }
+    class TrainingWorkflow {
+        <<module>>
+    }
+    class Dashboard {
+        <<module>>
+    }
+    TrainingWorkflow ..> ModelTrainer : evaluates and logs
+    ModelPredictor ..> DataPreprocessor : prepares single input
+    Dashboard ..> ModelPredictor : predicts
+```
+
 ## Getting started
 
 ```bash
